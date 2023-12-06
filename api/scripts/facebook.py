@@ -7,7 +7,13 @@ from fb_parsing.settings import PASSWORD
 def fb_posts(post_urls):
     data = []
 
-    for post in get_posts(post_urls=post_urls, credentials=(EMAIL, PASSWORD)):
+    for post in get_posts(
+        post_urls=post_urls,
+        credentials=(EMAIL, PASSWORD),
+        options={
+            "reactions": True,
+            }
+    ):
         post_id = post.get('post_id')
         post_url = post.get('post_url')
         published_time = post.get('time')
