@@ -1,12 +1,10 @@
-from fb_parsing.settings import FACEBOOK_COOKIES
 from facebook_scraper import set_cookies
 from facebook_scraper import get_posts
 
+from fb_parsing.settings import FACEBOOK_COOKIES
 
-def fetch_facebook_posts(account, start_date, end_date):
-    print(start_date)
-    print(end_date)
 
+def more_pages(account, start_date, end_date):
     set_cookies(FACEBOOK_COOKIES)
 
     data = []
@@ -21,11 +19,9 @@ def fetch_facebook_posts(account, start_date, end_date):
             "allow_extra_requests": False,
             "comments": False,
             "reactors": False,
-            "progress": False,
-            "reactions": True,
+            "progress": False
         }
     ):
-
         post_date = post['time']
 
         if start_date <= post_date <= end_date:

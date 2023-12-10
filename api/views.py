@@ -5,8 +5,8 @@ from datetime import datetime
 
 
 from api.models import FacebookPost
-from api.scripts.testing import fetch_facebook_posts
-from api.scripts.facebook import fb_posts
+from api.scripts.more_pages import more_pages
+from api.scripts.single_pages import single_page
 
 
 class FacebookSinglePostsAPIView(APIView):
@@ -16,7 +16,7 @@ class FacebookSinglePostsAPIView(APIView):
         if not post_url:
             return Response({'error': 'Missing required parameters!'}, status=status.HTTP_400_BAD_REQUEST)
 
-        data = fb_posts([post_url])
+        data = single_page([post_url])
 
         for item in data:
             FacebookPost.objects.create(
@@ -34,7 +34,7 @@ class FacebookSinglePostsAPIView(APIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
-class FacebookPostsAPIView(APIView):
+class FacebookMorePostsAPIView(APIView):
     def get(self, request, *args, **kwargs):
         account = request.query_params.get('account')
         start_date_str = request.query_params.get('start_date')
@@ -44,12 +44,17 @@ class FacebookPostsAPIView(APIView):
             return Response({'error': 'Missing required parameters!'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            start_date = datetime(2023, 12, 1)
-            end_date = datetime(2023, 12, 10)
-        except ValueError:
-            return Response({'error': 'Invalid date format. Use YYYY-MM-DD.'}, status=status.HTTP_400_BAD_REQUEST)
+            start_year, start_month, start_day = map(int, start_date_str.split(','))
+            end_year, end_month, end_day = map(int, end_date_str.split(','))
 
-        data = fetch_facebook_posts(account, start_date, end_date)
+            start_date = datetime(start_year, start_month, start_day)
+            end_date = datetime(end_year, end_month, end_day)
+
+        except (ValueError, TypeError):
+            return Response({
+                'error': 'Invalid date format. Use YYYY, MM, DD.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        data = more_pages(account, start_date, end_date)
 
         response_data = {
             'status': 'Success',

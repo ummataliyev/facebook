@@ -4,7 +4,7 @@ from fb_parsing.settings import EMAIL
 from fb_parsing.settings import PASSWORD
 
 
-def fb_posts(post_urls):
+def single_page(post_urls):
     data = []
 
     for post in get_posts(
