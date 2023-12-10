@@ -1,7 +1,8 @@
+from datetime import datetime
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from datetime import datetime
 
 
 from api.models import FacebookPost

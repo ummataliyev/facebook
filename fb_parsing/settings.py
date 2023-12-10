@@ -130,6 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Facebook configs
-FACEBOOK_COOKIES = env.json('FACEBOOK_COOKIES')
 EMAIL = env.str('EMAIL')
 PASSWORD = env.str('PASSWORD')
+FACEBOOK_COOKIES = env.json('FACEBOOK_COOKIES')
