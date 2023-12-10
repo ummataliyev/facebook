@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # external
     'rest_framework',
 
+    # internal
     'api'
 ]
 
@@ -117,6 +118,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -124,6 +129,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Creditionals
-EMAIL = env.str("email")
-PASSWORD = env.str("password")
+# Facebook configs
+FACEBOOK_COOKIES = env.json('FACEBOOK_COOKIES')
+EMAIL = env.str('EMAIL')
+PASSWORD = env.str('PASSWORD')
