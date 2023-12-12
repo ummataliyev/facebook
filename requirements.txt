@@ -1,10 +1,8 @@
-dateparser==1.2.0
-demjson3==3.0.6
 djangorestframework==3.14.0
 environs==9.5.0
 flake8==6.1.0
 pip-chill==1.0.3
 psycopg==3.1.14
 pysocks==1.7.1
-requests-html==0.10.0
 trio-websocket==0.11.1
+facebook-scraper @ git+https://github.com/moda20/facebook-scraper.git@a97790850a7ecfdd7bab92b3b072b38b8107e797
