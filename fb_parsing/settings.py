@@ -73,12 +73,12 @@ WSGI_APPLICATION = 'fb_parsing.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'mydbhost',
-        'PORT': '5432',
+        'ENGINE': env.str('POSTGRES_ENGINE'),
+        'NAME': env.str("POSTGRES_DB"),
+        'USER': env.str("POSTGRES_USER"),
+        'PASSWORD': env.str("POSTGRES_PASSWORD"),
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
