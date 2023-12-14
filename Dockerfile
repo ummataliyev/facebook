@@ -1,25 +1,22 @@
-FROM python:3.10-slim
+FROM python:3.10
 
-# Environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Work directory
 WORKDIR /app
 
-# Install Python dependencies
-COPY requirements.txt /app/
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
 
-# Copy project
-COPY . /app/
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git && \
+    rm -rf /var/lib/apt/lists/*
 
-# Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "fb_parsing.wsgi:application"]
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+RUN chmod +x entrypoint.sh
+
+EXPOSE 8000
+
+ENTRYPOINT ["sh", "entrypoint.sh"]

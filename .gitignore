@@ -97,9 +97,8 @@ celerybeat-schedule.*
 *.sage.py 
 
 # Environments 
-.env 
 .venv 
-env/ 
+
 venv/ 
 ENV/ 
 env.bak/ 
@@ -139,4 +138,4 @@ GitHub.sublime-settings
 #loca
 db.sqlite3
 .vscode/
-.env
+

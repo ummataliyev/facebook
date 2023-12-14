@@ -1,12 +1,13 @@
 #!/bin/bash
-set -e
 
-# Apply database migrations
-echo "Applying database migrations"
-python manage.py migrate
+# Install git
+apt-get update && apt-get install -y git
 
-# Collect static files
-echo "Collecting static files"
-python manage.py collectstatic --noinput --clear
+# Run Django migrations
+python3 manage.py migrate
 
+# Start the Django server
+python3 manage.py runserver 0.0.0.0:8000
+
+# Execute additional commands if needed
 exec "$@"
